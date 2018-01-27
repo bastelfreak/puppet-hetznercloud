@@ -57,3 +57,13 @@ Read-only property. Will show the configured ipv4 address from the system
 ### ipv6
 
 Read-only property, will show the configured ipv6 prefix from the system
+
+## Testing
+
+You can experiment with this module locally, if you set the RUBYLIB environment variable:
+
+```sh
+git clone https://github.com/bastelfreak/puppet-hetznercloud
+cd puppet-hetznercloud
+RUBYLIB=$(pwd)/lib puppet resource hetzner_server --debug
+```
