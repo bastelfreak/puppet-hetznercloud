@@ -1,0 +1,16 @@
+{
+  "name": "puppet-hetznercloud",
+  "version": "0.1.0",
+  "author": "Tim Meusel",
+  "summary": "manages hetzners cloud resources",
+  "dependencies": [],
+  "source": "https://github.com/bastelfreak/puppet-hetznercloud.git",
+  "issues": "https://github.com/bastelfreak/puppet-hetznercloud/issues",
+  "project_page": "https://github.com/bastelfreak/puppet-hetznercloud",
+  "license": "AGPL-3.0",
+  "tags": [
+    "awesome",
+    "hetzner",
+    "cloud"
+  ]
+}
