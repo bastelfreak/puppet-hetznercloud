@@ -2,12 +2,11 @@
 # https://github.com/hetznercloud/cli
 
 Puppet::Type.type(:hetzner_server).provide(:api) do
-
   desc 'A REST API based provider to manage the hetzner cloud servers'
 
-  commands :hcloud => 'hcloud'
+  commands hcloud: 'hcloud'
 
-  defaultfor :operatingsystem => :Archlinux
+  defaultfor operatingsystem: :Archlinux
 
   def server_details
     begin
@@ -17,7 +16,7 @@ Puppet::Type.type(:hetzner_server).provide(:api) do
       return nil
     end
     output_splitted = output.split("\n")
-    return nil if output_splitted.first =~ /server not found/
+    return nil if output_splitted.first =~ %r{server not found}
     output
   end
 
@@ -62,7 +61,7 @@ Puppet::Type.type(:hetzner_server).provide(:api) do
   def self.instances
     resources = []
     all_server.each do |server|
-      resource = {ensure: server[:status], name: server[:name]}
+      resource = { ensure: server[:status], name: server[:name] }
       resources << new(resource)
     end
     resources
@@ -73,7 +72,7 @@ Puppet::Type.type(:hetzner_server).provide(:api) do
     # https://github.com/elastic/puppet-elasticsearch/blob/master/lib/puppet/provider/elasticsearch_service_file/ruby.rb#L45
     servers = instances
     resources.keys.each do |name|
-      if (provider = servers.find{|server| server.name == name})
+      if (provider = servers.find { |server| server.name == name })
         resources[name].provider = provider
       end
     end
@@ -81,10 +80,10 @@ Puppet::Type.type(:hetzner_server).provide(:api) do
 
   def self.all_server
     server = []
-    output = hcloud(['server', 'list'])
+    output = hcloud(%w[server list])
     output.lines.drop(1).each do |line|
-      ary = line.split()
-      hash = {id: ary[0], name: ary[1], status: ary[2], ipv4: ary[3], ipv6: ary[4]}
+      ary = line.split
+      hash = { id: ary[0], name: ary[1], status: ary[2], ipv4: ary[3], ipv6: ary[4] }
       server << hash
     end
     server
@@ -93,7 +92,7 @@ Puppet::Type.type(:hetzner_server).provide(:api) do
   def status
     # return 'absent' if the server doesn't exist
     output = server_details
-    output == nil ? 'absent' : output.lines[2].split[1]
+    output.nil? ? 'absent' : output.lines[2].split[1]
   end
 
   def ensure
@@ -140,55 +139,39 @@ Puppet::Type.type(:hetzner_server).provide(:api) do
     create_image('snapshot')
   end
 
-  def datacenter
+  def datacenter; end
 
-  end
-
-  def datacenter=(value)
-
-  end
+  def datacenter=(value); end
 
   def location
     resource[:location]
   end
 
-  def location=(value)
-
-  end
+  def location=(value); end
 
   def image
     output = server_details
     output.lines.drop(22)[4].split[1] unless output.nil?
   end
 
-  def image=(value)
-
-  end
+  def image=(value); end
 
   def ssh_keys
     resource[:ssh_keys]
   end
 
-  def ssh_keys=(value)
+  def ssh_keys=(value); end
 
-  end
+  def user_data; end
 
-  def user_data
-
-  end
-
-  def user_data=(value)
-
-  end
+  def user_data=(value); end
 
   def ipv4
     output = server_details
     output.lines[14].split[1] unless output.nil?
   end
 
-  def ipv4=(value)
-
-  end
+  def ipv4=(value); end
 
   def ipv6
     output = server_details
