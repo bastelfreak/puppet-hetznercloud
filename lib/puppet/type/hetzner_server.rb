@@ -1,10 +1,9 @@
 # https://docs.hetzner.cloud/#resources-servers-post
 Puppet::Type.newtype(:hetzner_server) do
-
   newproperty(:ensure) do
     desc 'the current server status, running, absent or off'
     newvalue(:running) do # server exists and is running
-      if not provider.exists?
+      if !provider.exists?
         provider.create
       else
         provider.start unless provider.started?
@@ -59,16 +58,16 @@ Puppet::Type.newtype(:hetzner_server) do
     end
   end
 
-  newproperty(:ssh_keys, :array_matching => :all) do
+  newproperty(:ssh_keys, array_matching: :all) do
     desc 'SSH key IDs which should be injected into the server at creation time'
-    #validate do |value|
-      #raise Puppet::Error, 'invalid parameter for ssh_keys, expected array' unless value.is_a? Array
-    #end
+    # validate do |value|
+    # raise Puppet::Error, 'invalid parameter for ssh_keys, expected array' unless value.is_a? Array
+    # end
 
     # this would be a good idea, but we can't check which keys are currently in the systems, so is is always nil::NilClass :(
-    #def insync?(is)
+    # def insync?(is)
     #  is.sort == should.sort
-    #end
+    # end
   end
 
   newproperty(:user_data) do
