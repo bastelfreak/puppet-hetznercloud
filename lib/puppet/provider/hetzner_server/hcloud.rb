@@ -1,7 +1,7 @@
 # provider based on the go CLI thing
 # https://github.com/hetznercloud/cli
 
-Puppet::Type.type(:hetzner_server).provide(:api) do
+Puppet::Type.type(:hetzner_server).provide(:hcloud) do
   desc 'A REST API based provider to manage the hetzner cloud servers'
 
   commands hcloud: 'hcloud'
