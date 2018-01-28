@@ -38,7 +38,7 @@ Puppet::Type.type(:hetzner_server).provide(:hcloud) do
       array << resource[:location]
     end
 
-    if resource[:ssh_keys].count > 0
+    unless resource[:ssh_keys].to_a.empty?
       Puppet.debug("ssh_keys property has the value #{resource[:ssh_keys]}")
       resource[:ssh_keys].each do |key|
         array << '--ssh-key'
