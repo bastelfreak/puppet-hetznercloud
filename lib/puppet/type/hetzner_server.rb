@@ -79,9 +79,15 @@ Puppet::Type.newtype(:hetzner_server) do
 
   newproperty(:ipv4) do
     desc 'the ipv4 address of the server. Readonly property'
+    validate do |_val|
+      raise Puppet::Error, 'ipv4 is read only'
+    end
   end
 
   newproperty(:ipv6) do
     desc 'the ipv6 prefix of the server. Readonly property'
+    validate do |_val|
+      raise Puppet::Error 'ipv6 is read only'
+    end
   end
 end
