@@ -1,3 +1,5 @@
 ---
 hetznercloud::manage_hcloud: false
 hetznercloud::hcloud_package_name: 'hcloud'
+hetznercloud::manage_gem: false
+hetznercloud::gem_name: 'hcloud'
