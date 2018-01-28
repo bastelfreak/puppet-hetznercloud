@@ -1,0 +1,3 @@
+---
+hetznercloud::manage_hcloud: false
+hetznercloud::hcloud_package_name: 'hcloud'
